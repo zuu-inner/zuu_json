@@ -4,3 +4,6 @@
 [submodule "assets/sample"]
 	path = assets/sample
 	url = https://github.com/zuu-inner/zuu_json_sample.git
+[submodule "tests"]
+	path = tests
+	url = https://github.com/zuu-inner/zuu_json_test.git
