@@ -4,7 +4,7 @@ add_library(${ZUU_JSON_LIBRARY_TARGET})
 
 target_sources(${ZUU_JSON_LIBRARY_TARGET}
     PRIVATE
-        # will filled
+        ${CMAKE_SOURCE_DIR}/src/lexer/dummy.cpp
 )
 
 target_include_directories(${ZUU_JSON_LIBRARY_TARGET}
@@ -30,8 +30,10 @@ endif()
 
 if(CLANG_TIDY_EXE)
     set_target_properties(${ZUU_JSON_LIBRARY_TARGET} PROPERTIES
-        CXX_CLANG_TIDY "${CLANG_TIDY_CMD}"
+        CXX_CLANG_TIDY "${CLANG_TIDY_EXE}"
     )
 endif()
 
 add_library(zuu_json::zuu_json ALIAS ${ZUU_JSON_LIBRARY_TARGET})
+
+add_test_target(unit error)

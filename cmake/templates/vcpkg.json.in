@@ -1,7 +1,7 @@
 {
     "name": "@VCPKG_PROJECT_NAME@",
     "version": "@PROJECT_VERSION@",
-    "builtin-baseline": "not defined",
+    "builtin-baseline": "40f3c709db80acf154ac4b17a1f83c564ebd022e",
 	"description": "JSON library",
     "dependencies": [
         "benchmark",

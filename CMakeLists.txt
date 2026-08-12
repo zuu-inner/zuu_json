@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(
 	zuu_json
-	VERSION 0.1.0
+	VERSION 0.2.0
 	LANGUAGES CXX
 )
 
@@ -19,25 +19,21 @@ include(cmake/optimization.cmake)
 include(cmake/sanitizer.cmake)
 include(cmake/coverage.cmake)
 
-include(cmake/target.cmake)
+include(cmake/clang-format.cmake)
 
-if(ZUU_JSON_ENABLE_CLANG_FORMAT)
-    include(cmake/clang-format.cmake)
-endif()
-
-if(ZUU_JSON_ENABLE_CLANG_TIDY)
-    include(cmake/clang-tidy.cmake)
-endif()
+include(cmake/clang-tidy.cmake)
 
 if(ZUU_JSON_ENABLE_DOXYGEN)
-    include(cmake/doxygen.cmake)
+    include(cmake/doxyfile.cmake)
 endif()
 
 if(ZUU_JSON_BUILD_TESTS)
+    include(cmake/third_party/gtest.cmake)
     include(cmake/testing.cmake)
 endif()
 
 if(ZUU_JSON_BUILD_BENCHMARKS)
+    include(cmake/third_party/benchmark.cmake)
     include(cmake/benchmark.cmake)
 endif()
 
@@ -48,3 +44,5 @@ endif()
 if(ZUU_JSON_BUILD_FUZZERS)
     include(cmake/fuzzing.cmake)
 endif()
+
+include(cmake/target.cmake)
