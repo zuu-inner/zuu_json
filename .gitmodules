@@ -1,0 +1,6 @@
+[submodule "assets/benchmark"]
+	path = assets/benchmark
+	url = https://github.com/zuu-inner/zuu_json_benchmark.git
+[submodule "assets/sample"]
+	path = assets/sample
+	url = https://github.com/zuu-inner/zuu_json_sample.git
