@@ -1,0 +1,24 @@
+/**
+ * @file version.hpp
+ * @author zuudevs (zuudevs@gmail.com)
+ * @brief Auto-generated version header
+ * @version @PROJECT_VERSION@
+ * @date 2026-07-26
+ *
+ * @copyright Copyright (c) 2026
+ */
+
+#pragma once
+
+#include <cstdint>
+
+namespace zuu::json {
+
+constexpr const char* zuu_json_version = "@PROJECT_VERSION@";
+constexpr uint8_t zuu_json_version_major = @PROJECT_VERSION_MAJOR@;
+constexpr uint8_t zuu_json_version_minor = @PROJECT_VERSION_MINOR@;
+constexpr uint8_t zuu_json_version_patch = @PROJECT_VERSION_PATCH@;
+constexpr const char* zuu_json_author = "@PROJECT_AUTHOR@";
+constexpr const char* zuu_json_repository = "@PROJECT_REPOSITORY@";
+
+} // namespace zuu::json

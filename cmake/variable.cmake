@@ -1,0 +1,1 @@
+set(VCPKG_PROJECT_NAME "zuu-json")

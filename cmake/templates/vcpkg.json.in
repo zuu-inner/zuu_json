@@ -1,0 +1,10 @@
+{
+    "name": "@VCPKG_PROJECT_NAME@",
+    "version": "@PROJECT_VERSION@",
+    "builtin-baseline": "not defined",
+	"description": "JSON library",
+    "dependencies": [
+        "benchmark",
+        "gtest"
+    ]
+}

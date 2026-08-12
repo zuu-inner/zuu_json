@@ -1,0 +1,9 @@
+out
+vcpkg_installed/
+.vscode/
+.cache/
+*.o
+*.a
+*.lib
+*.dll
+*.exe
