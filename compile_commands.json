@@ -1,9 +1,9 @@
 [
 {
   "directory": "D:/playground/zuu_json/out/build/debug",
-  "command": "\"C:\\Program Files\\LLVM\\bin\\clang++.exe\" -D_DISABLE_STRING_ANNOTATION -D_DISABLE_VECTOR_ANNOTATION -ID:/playground/zuu_json/include -ID:/playground/zuu_json/internal -Wno-c2y-extensions -O0 -g -Xclang -gcodeview -std=c++23 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -Wextra -Wpedantic -Wconversion -Wshadow -o CMakeFiles\\zuu_json.dir\\src\\lexer\\dummy.cpp.obj -c D:\\playground\\zuu_json\\src\\lexer\\dummy.cpp",
-  "file": "D:/playground/zuu_json/src/lexer/dummy.cpp",
-  "output": "D:/playground/zuu_json/out/build/debug/CMakeFiles/zuu_json.dir/src/lexer/dummy.cpp.obj"
+  "command": "\"C:\\Program Files\\LLVM\\bin\\clang++.exe\" -D_DISABLE_STRING_ANNOTATION -D_DISABLE_VECTOR_ANNOTATION -ID:/playground/zuu_json/include -ID:/playground/zuu_json/internal -Wno-c2y-extensions -O0 -g -Xclang -gcodeview -std=c++23 -D_DEBUG -D_DLL -D_MT -Xclang --dependent-lib=msvcrtd -Wall -Wextra -Wpedantic -Wconversion -Wshadow -o CMakeFiles\\zuu_json.dir\\src\\tokenizer\\dummy.cpp.obj -c D:\\playground\\zuu_json\\src\\tokenizer\\dummy.cpp",
+  "file": "D:/playground/zuu_json/src/tokenizer/dummy.cpp",
+  "output": "D:/playground/zuu_json/out/build/debug/CMakeFiles/zuu_json.dir/src/tokenizer/dummy.cpp.obj"
 },
 {
   "directory": "D:/playground/zuu_json/out/build/debug",

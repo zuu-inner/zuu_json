@@ -4,7 +4,7 @@ add_library(${ZUU_JSON_LIBRARY_TARGET})
 
 target_sources(${ZUU_JSON_LIBRARY_TARGET}
     PRIVATE
-        ${CMAKE_SOURCE_DIR}/src/lexer/dummy.cpp
+        ${CMAKE_SOURCE_DIR}/src/tokenizer/dummy.cpp
 )
 
 target_include_directories(${ZUU_JSON_LIBRARY_TARGET}
