@@ -1,21 +1,21 @@
-# Product Requirements Document (PRD)
+**# Product Requirements Document (PRD)**
 
-## 1. Informasi Produk
+**## 1. Informasi Produk**
 
-| Field              | Detail     |
+| Field              | Detail     |
 | ------------------ | ---------- |
-| **Nama Produk**    | `zuu_json` |
-| **Versi PRD**      | `v1.0.0`   |
-| **Status**         | Draft      |
-| **Author**         | zuudevs    |
-| **Tanggal**        | 12-08-2026 |
-| **Target Release** | TBD        |
+| **Nama Produk**    | `zuu_json` |
+| **Versi PRD**      | `v1.0.0`   |
+| **Status**         | Draft      |
+| **Author**         | zuudevs    |
+| **Tanggal**        | 12-08-2026 |
+| **Target Release** | TBD        |
 
 ---
 
-## 2. Ringkasan Produk
+**## 2. Ringkasan Produk**
 
-### 2.1 Deskripsi
+**### 2.1 Deskripsi**
 
 `zuu_json` adalah library JSON parser untuk C++ yang dirancang untuk menyediakan **performa parsing tinggi**, **efisiensi penggunaan memory**, dan **dukungan optimisasi berbasis hardware**.
 
@@ -23,7 +23,7 @@ Parser memanfaatkan SIMD apabila hardware dan instruction set yang tersedia mend
 
 `zuu_json` berfokus pada proses **parsing JSON** dan tidak menyediakan fitur networking, HTTP, database, maupun komunikasi antar sistem.
 
-### 2.2 Problem Statement
+**### 2.2 Problem Statement**
 
 JSON banyak digunakan sebagai format pertukaran data pada aplikasi modern. Ketika aplikasi memproses JSON dalam jumlah besar atau dengan frekuensi tinggi, proses parsing dapat menjadi bagian dari computational workload yang signifikan.
 
@@ -35,7 +35,7 @@ JSON banyak digunakan sebagai format pertukaran data pada aplikasi modern. Ketik
 * pemanfaatan kemampuan hardware,
 * dan fallback yang tetap efisien ketika SIMD tidak tersedia.
 
-### 2.3 Tujuan Produk
+**### 2.3 Tujuan Produk**
 
 Produk ini bertujuan untuk:
 
@@ -46,7 +46,7 @@ Produk ini bertujuan untuk:
 * Menyediakan API C++ yang sederhana dan konsisten.
 * Menyediakan benchmark yang reproducible untuk mengevaluasi performa parser.
 
-### 2.4 Non-Goals
+**### 2.4 Non-Goals**
 
 `zuu_json` tidak bertujuan untuk:
 
@@ -60,15 +60,15 @@ Produk ini bertujuan untuk:
 
 ---
 
-## 3. Target User
+**## 3. Target User**
 
-### 3.1 Primary User
+**### 3.1 Primary User**
 
 **C++ Developer**
 
 Developer yang membutuhkan JSON parser dengan performa tinggi untuk aplikasi C++.
 
-### 3.2 Secondary User
+**### 3.2 Secondary User**
 
 **Library Developer**
 
@@ -76,29 +76,29 @@ Developer yang ingin menggunakan JSON parser sebagai dependency pada library ata
 
 ---
 
-## 4. User Stories
+**## 4. User Stories**
 
-### User Story 1
+**### User Story 1**
 
 > Sebagai C++ developer, saya ingin melakukan parsing JSON menggunakan API yang sederhana, sehingga saya dapat memproses data JSON dengan mudah.
 
-### User Story 2
+**### User Story 2**
 
 > Sebagai C++ developer, saya ingin parser memanfaatkan SIMD ketika hardware mendukung, sehingga proses parsing dapat dilakukan dengan performa optimal.
 
-### User Story 3
+**### User Story 3**
 
 > Sebagai C++ developer dengan hardware yang tidak mendukung SIMD yang diperlukan, saya ingin parser memiliki fallback SWAR, sehingga parser tetap dapat berjalan dengan algoritma yang efisien.
 
-### User Story 4
+**### User Story 4**
 
 > Sebagai developer aplikasi yang membutuhkan performa tinggi, saya ingin dapat membandingkan performa tokenizer dan parser melalui benchmark, sehingga saya dapat mengevaluasi performa `zuu_json`.
 
 ---
 
-## 5. Functional Requirements
+**## 5. Functional Requirements**
 
-### FR-001 — JSON Parsing
+**### FR-001 — JSON Parsing**
 
 **Deskripsi:**
 
@@ -126,7 +126,7 @@ Library harus mampu melakukan parsing terhadap JSON yang valid sesuai grammar JS
 
 ---
 
-### FR-002 — SIMD Acceleration
+**### FR-002 — SIMD Acceleration**
 
 **Deskripsi:**
 
@@ -143,7 +143,7 @@ SIMD digunakan sebagai jalur optimisasi untuk operasi parsing yang sesuai.
 
 ---
 
-### FR-003 — SWAR Fallback
+**### FR-003 — SWAR Fallback**
 
 **Deskripsi:**
 
@@ -161,7 +161,7 @@ SWAR menjadi jalur alternatif untuk tetap melakukan optimisasi pada hardware yan
 
 ---
 
-### FR-004 — Error Handling
+**### FR-004 — Error Handling**
 
 **Deskripsi:**
 
@@ -176,7 +176,7 @@ Parser harus menyediakan mekanisme untuk mendeteksi dan melaporkan input JSON ya
 
 ---
 
-### FR-005 — JSON Value Access
+**### FR-005 — JSON Value Access**
 
 **Deskripsi:**
 
@@ -192,9 +192,9 @@ Hasil parsing harus dapat diakses melalui public C++ API.
 
 ---
 
-## 6. Non-Functional Requirements
+**## 6. Non-Functional Requirements**
 
-### Performance
+**### Performance**
 
 * Parser harus dioptimalkan untuk latency rendah dan throughput tinggi.
 * SIMD digunakan apabila hardware mendukung.
@@ -202,19 +202,19 @@ Hasil parsing harus dapat diakses melalui public C++ API.
 * Tokenizer dan parser harus dapat diukur melalui benchmark.
 * Performance regression harus dapat terdeteksi melalui benchmark.
 
-### Memory Efficiency
+**### Memory Efficiency**
 
 * Parser harus meminimalkan allocation yang tidak diperlukan.
 * Copy data yang tidak diperlukan harus dihindari apabila memungkinkan.
 * Memory usage harus dapat dianalisis melalui profiling atau benchmark.
 
-### Reliability
+**### Reliability**
 
 * Parser harus menghasilkan hasil yang deterministik untuk input yang sama.
 * Invalid input tidak boleh menyebabkan crash atau undefined behavior.
 * Regression test harus dipertahankan.
 
-### Portability
+**### Portability**
 
 Library harus dapat digunakan pada platform yang didukung oleh compiler dan architecture target.
 
@@ -224,7 +224,7 @@ Target awal:
 * Linux
 * macOS
 
-### Language & Build Compatibility
+**### Language & Build Compatibility**
 
 * Language Standard: C++23
 * Build System: CMake
@@ -235,9 +235,9 @@ Target awal:
 
 ---
 
-## 7. User Flow
+**## 7. User Flow**
 
-### Flow: Parse JSON
+**### Flow: Parse JSON**
 
 1. Developer menyediakan input JSON.
 2. Developer memanggil API parsing `zuu_json`.
@@ -246,30 +246,30 @@ Target awal:
 5. Jika SIMD tidak tersedia, parser menggunakan SWAR path.
 6. Input ditokenisasi.
 7. Token hasil tokenization diproses oleh parser.
-8. Parser menghasilkan JSON value/document atau error.
+8. Parser menghasilkan JSON representation berbasis structural index dan value access atau error.
 
 **Expected Result:**
 
-Input JSON yang valid menghasilkan representasi JSON yang dapat diakses melalui public API, sedangkan input invalid menghasilkan parsing error.
+Input JSON yang valid menghasilkan representation yang dapat diakses melalui public API berbasis structural index dan on-demand parsing, sedangkan input invalid menghasilkan parsing error.
 
 ---
 
-## 8. Data Requirements
+**## 8. Data Requirements**
 
-### Entity: JSON Value
+**### Entity: JSON Value**
 
 `zuu_json` harus dapat merepresentasikan JSON value berikut:
 
-| Type      | Description                       |
+| Type      | Description                       |
 | --------- | --------------------------------- |
-| `null`    | JSON null value                   |
-| `boolean` | `true` atau `false`               |
-| `number`  | JSON number                       |
-| `string`  | JSON string                       |
-| `array`   | Ordered collection of JSON values |
-| `object`  | Collection of key-value pairs     |
+| `null`    | JSON null value                   |
+| `boolean` | `true` atau `false`               |
+| `number`  | JSON number                       |
+| `string`  | JSON string                       |
+| `array`   | Ordered collection of JSON values |
+| `object`  | Collection of key-value pairs     |
 
-### Data Validation
+**### Data Validation**
 
 * JSON syntax harus mengikuti grammar JSON yang didukung.
 * String harus mengikuti aturan escaping JSON.
@@ -279,7 +279,7 @@ Input JSON yang valid menghasilkan representasi JSON yang dapat diakses melalui 
 
 ---
 
-## 9. API Requirements
+**## 9. API Requirements**
 
 `zuu_json` merupakan **library API C++**, bukan REST API atau networking API.
 
@@ -289,7 +289,7 @@ Contoh konseptual:
 auto result = zuu::json::parse(input);
 ```
 
-### API Requirements
+**### API Requirements**
 
 * Public API harus konsisten.
 * Public API harus terdokumentasi.
@@ -300,7 +300,7 @@ auto result = zuu::json::parse(input);
 
 ---
 
-## 10. UI/UX Requirements
+**## 10. UI/UX Requirements**
 
 Tidak berlaku karena `zuu_json` merupakan library dan tidak menyediakan graphical user interface.
 
@@ -314,9 +314,9 @@ Fokus Developer Experience:
 
 ---
 
-## 11. Technical Requirements
+**## 11. Technical Requirements**
 
-### Architecture
+**### Architecture**
 
 `zuu_json` menggunakan pendekatan **multi-stage parsing pipeline** yang terinspirasi dari arsitektur `simdjson`.
 
@@ -324,22 +324,22 @@ Pipeline memisahkan proses identifikasi struktur JSON dari proses parsing sehing
 
 ```mermaid
 flowchart TD
-    A["JSON Input"] --> B["Stage 1<br/>Structural Scan"]
+    A["JSON Input"] --> B["Stage 1<br/>Structural Scan"]
 
-    B --> C{"Hardware Capability"}
+    B --> C{"Hardware Capability"}
 
-    C -->|SIMD Available| D["SIMD Backend"]
-    C -->|SIMD Unavailable| E["SWAR Backend"]
+    C -->|SIMD Available| D["SIMD Backend"]
+    C -->|SIMD Unavailable| E["SWAR Backend"]
 
-    D --> F["Structural Information"]
-    E --> F
+    D --> F["Structural Information"]
+    E --> F
 
-    F --> G["Stage 2<br/>Structural Parsing"]
+    F --> G["Stage 2<br/>Structural Parsing"]
 
-    G --> H["JSON Representation"]
+    G --> H["JSON Representation"]
 ```
 
-### Stage 1 — Structural Scan
+**### Stage 1 — Structural Scan**
 
 Stage pertama bertanggung jawab untuk melakukan scanning terhadap input JSON dan mengidentifikasi informasi struktural yang diperlukan oleh tahap parsing berikutnya.
 
@@ -357,20 +357,20 @@ Apabila SIMD tidak tersedia, stage menggunakan backend berbasis **SWAR**.
 
 ```mermaid
 flowchart LR
-    A["JSON Input"] --> B["Structural Scan"]
+    A["JSON Input"] --> B["Structural Scan"]
 
-    B --> C{"SIMD Supported?"}
+    B --> C{"SIMD Supported?"}
 
-    C -->|Yes| D["SIMD Implementation"]
-    C -->|No| E["SWAR Implementation"]
+    C -->|Yes| D["SIMD Implementation"]
+    C -->|No| E["SWAR Implementation"]
 
-    D --> F["Structural Information"]
-    E --> F
+    D --> F["Structural Information"]
+    E --> F
 ```
 
-### Stage 2 — Structural Parsing
+**### Stage 2 — Structural Parsing**
 
-Stage kedua menggunakan informasi struktural yang dihasilkan Stage 1 untuk membangun representasi JSON.
+Stage kedua menggunakan structural index yang dihasilkan Stage 1 untuk melakukan parsing secara on-demand dan menyediakan akses terhadap JSON value tanpa membangun representasi tree penuh.
 
 Tanggung jawab tahap ini meliputi:
 
@@ -383,65 +383,65 @@ Tanggung jawab tahap ini meliputi:
 
 ```mermaid
 flowchart TD
-    A["Structural Information"] --> B["Stage 2<br/>Structural Parsing"]
+    A["Structural Information"] --> B["Stage 2<br/>Structural Parsing"]
 
-    B --> C{"JSON Type"}
+    B --> C{"JSON Type"}
 
-    C -->|Object| D["Object"]
-    C -->|Array| E["Array"]
-    C -->|String| F["String"]
-    C -->|Number| G["Number"]
-    C -->|Boolean| H["Boolean"]
-    C -->|Null| I["Null"]
+    C -->|Object| D["Object"]
+    C -->|Array| E["Array"]
+    C -->|String| F["String"]
+    C -->|Number| G["Number"]
+    C -->|Boolean| H["Boolean"]
+    C -->|Null| I["Null"]
 
-    D --> J["JSON Representation"]
-    E --> J
-    F --> J
-    G --> J
-    H --> J
-    I --> J
+    D --> J["JSON Representation"]
+    E --> J
+    F --> J
+    G --> J
+    H --> J
+    I --> J
 ```
 
-### Overall Parsing Pipeline
+**### Overall Parsing Pipeline**
 
 ```mermaid
 flowchart TD
-    A["JSON Input"] --> B["Stage 1<br/>Structural Scan"]
+    A["JSON Input"] --> B["Stage 1<br/>Structural Scan"]
 
-    B --> C{"Hardware Capability"}
+    B --> C{"Hardware Capability"}
 
-    C -->|SIMD Available| D["SIMD Backend"]
-    C -->|SIMD Unavailable| E["SWAR Backend"]
+    C -->|SIMD Available| D["SIMD Backend"]
+    C -->|SIMD Unavailable| E["SWAR Backend"]
 
-    D --> F["Structural Information"]
-    E --> F
+    D --> F["Structural Information"]
+    E --> F
 
-    F --> G["Stage 2<br/>Structural Parsing"]
-    G --> H["JSON Representation"]
+    F --> G["Stage 2<br/>Structural Parsing"]
+    G --> H["JSON Representation"]
 
-    H --> I["Public C++ API"]
+    H --> I["Public C++ API"]
 ```
 
-### Backend Architecture
+**### Backend Architecture**
 
 SIMD dan SWAR bukan bagian dari public API. Keduanya merupakan implementation backend yang digunakan secara transparan oleh parsing pipeline.
 
 ```mermaid
 flowchart TD
-    A["Parsing Pipeline"] --> B["Backend Selection"]
+    A["Parsing Pipeline"] --> B["Backend Selection"]
 
-    B --> C{"Hardware Support"}
+    B --> C{"Hardware Support"}
 
-    C -->|SIMD Supported| D["SIMD Backend"]
-    C -->|SIMD Unsupported| E["SWAR Backend"]
+    C -->|SIMD Supported| D["SIMD Backend"]
+    C -->|SIMD Unsupported| E["SWAR Backend"]
 
-    D --> F["Same Parsing Semantics"]
-    E --> F
+    D --> F["Same Parsing Semantics"]
+    E --> F
 
-    F --> G["Same JSON Result"]
+    F --> G["Same JSON Result"]
 ```
 
-### Pipeline Requirements
+**### Pipeline Requirements**
 
 * [ ] Parser menggunakan multi-stage parsing pipeline.
 * [ ] Stage 1 bertanggung jawab terhadap structural scanning.
@@ -454,35 +454,35 @@ flowchart TD
 * [ ] Setiap stage dapat di-benchmark secara independen.
 * [ ] Full pipeline benchmark tersedia.
 
-### Component Overview
+**### Component Overview**
 
 ```mermaid
 flowchart LR
-    subgraph Input
-        A["JSON Buffer"]
-    end
+    subgraph Input
+        A["JSON Buffer"]
+    end
 
-    subgraph Stage1["Stage 1"]
-        B["Structural Scan"]
-        C["SIMD / SWAR"]
-    end
+    subgraph Stage1["Stage 1"]
+        B["Structural Scan"]
+        C["SIMD / SWAR"]
+    end
 
-    subgraph Stage2["Stage 2"]
-        D["Structural Parsing"]
-    end
+    subgraph Stage2["Stage 2"]
+        D["Structural Parsing"]
+    end
 
-    subgraph Output
-        E["JSON Representation"]
-    end
+    subgraph Output
+        E["JSON Representation"]
+    end
 
-    A --> B
-    B --> C
-    C --> D
-    D --> E
+    A --> B
+    B --> C
+    C --> D
+    D --> E
 ```
 
 
-### Core Components
+**### Core Components**
 
 * **Tokenizer** — memproses input dan menghasilkan token JSON.
 * **SIMD Path** — implementation path yang memanfaatkan SIMD apabila tersedia.
@@ -491,20 +491,26 @@ flowchart LR
 * **Storage / JSON Value** — merepresentasikan hasil parsing.
 * **Error Handling** — menangani invalid input dan parsing failure.
 
-### Technology Stack
+**### Representation Strategy
 
-| Component             | Technology         |
+`zuu_json` menggunakan **structural index** dan **on-demand parsing** sebagai strategi representation utama sehingga value hanya diparsing ketika diakses.
+
+Untuk data string, parser diutamakan menggunakan pendekatan **zero-copy** terhadap input buffer apabila lifecycle dan API memungkinkan. Data yang memerlukan storage terpisah, khususnya untuk kebutuhan mutation, dapat menggunakan allocation strategy seperti arena.
+
+### Technology Stack**
+
+| Component             | Technology         |
 | --------------------- | ------------------ |
-| Language              | C++23              |
-| Build System          | CMake              |
-| Compiler              | Clang / GCC / MSVC |
-| Testing               | GoogleTest         |
-| Benchmark             | Google Benchmark   |
-| Fuzzing               | LLVM libFuzzer     |
-| Hardware Optimization | SIMD               |
-| Fallback Optimization | SWAR               |
+| Language              | C++23              |
+| Build System          | CMake              |
+| Compiler              | Clang / GCC / MSVC |
+| Testing               | GoogleTest         |
+| Benchmark             | Google Benchmark   |
+| Fuzzing               | LLVM libFuzzer     |
+| Hardware Optimization | SIMD               |
+| Fallback Optimization | SWAR               |
 
-### Constraints
+**### Constraints**
 
 * SIMD hanya digunakan apabila hardware mendukung instruction set yang diperlukan.
 * Library harus tetap dapat digunakan pada hardware tanpa SIMD yang diperlukan.
@@ -515,19 +521,19 @@ flowchart LR
 
 ---
 
-## 12. Success Metrics
+**## 12. Success Metrics**
 
-| Metric                  | Target                                                  |
+| Metric                  | Target                                                  |
 | ----------------------- | ------------------------------------------------------- |
-| Parsing correctness     | Seluruh test case valid berhasil diproses               |
+| Parsing correctness     | Seluruh test case valid berhasil diproses               |
 | Invalid input detection | Seluruh invalid test case yang didukung dapat dideteksi |
-| SIMD compatibility      | SIMD digunakan pada hardware target yang mendukung      |
-| Fallback compatibility  | SWAR berjalan pada hardware tanpa SIMD yang diperlukan  |
-| Performance regression  | Tidak terdapat regression signifikan tanpa justifikasi  |
-| Test coverage           | Seluruh komponen utama memiliki automated test          |
-| Benchmark               | Benchmark tokenizer, parser, dan full pipeline tersedia |
+| SIMD compatibility      | SIMD digunakan pada hardware target yang mendukung      |
+| Fallback compatibility  | SWAR berjalan pada hardware tanpa SIMD yang diperlukan  |
+| Performance regression  | Tidak terdapat regression signifikan tanpa justifikasi  |
+| Test coverage           | Seluruh komponen utama memiliki automated test          |
+| Benchmark               | Benchmark tokenizer, parser, dan full pipeline tersedia |
 
-### Performance Evaluation
+**### Performance Evaluation**
 
 Benchmark harus mencakup setidaknya:
 
@@ -543,68 +549,68 @@ Benchmark dapat digunakan untuk membandingkan `zuu_json` dengan JSON parser lain
 
 ---
 
-## 13. Edge Cases & Error Handling
+**## 13. Edge Cases & Error Handling**
 
-| Case                             | Expected Behavior                            |
+| Case                             | Expected Behavior                            |
 | -------------------------------- | -------------------------------------------- |
-| Empty input                      | Parsing error                                |
-| Invalid JSON syntax              | Parsing error                                |
-| Unterminated string              | Parsing error                                |
-| Invalid escape sequence          | Parsing error                                |
-| Invalid number                   | Parsing error                                |
-| Unexpected end of input          | Parsing error                                |
-| Deeply nested JSON               | Diproses sesuai batas implementasi           |
-| Large JSON document              | Diproses tanpa crash atau undefined behavior |
-| SIMD unavailable                 | Otomatis menggunakan SWAR                    |
-| Unsupported SIMD instruction set | Otomatis menggunakan SWAR                    |
+| Empty input                      | Parsing error                                |
+| Invalid JSON syntax              | Parsing error                                |
+| Unterminated string              | Parsing error                                |
+| Invalid escape sequence          | Parsing error                                |
+| Invalid number                   | Parsing error                                |
+| Unexpected end of input          | Parsing error                                |
+| Deeply nested JSON               | Diproses sesuai batas implementasi           |
+| Large JSON document              | Diproses tanpa crash atau undefined behavior |
+| SIMD unavailable                 | Otomatis menggunakan SWAR                    |
+| Unsupported SIMD instruction set | Otomatis menggunakan SWAR                    |
 
 ---
 
-## 14. Dependencies
+**## 14. Dependencies**
 
-### Development Dependencies
+**### Development Dependencies**
 
 * CMake
 * GoogleTest
 * Google Benchmark
 * LLVM libFuzzer
 
-### Runtime Dependencies
+**### Runtime Dependencies**
 
 `zuu_json` harus meminimalkan runtime dependency eksternal.
 
 ---
 
-## 15. Risks
+**## 15. Risks**
 
-| Risk                                          | Impact | Probability | Mitigation                                        |
+| Risk                                          | Impact | Probability | Mitigation                                        |
 | --------------------------------------------- | ------ | ----------- | ------------------------------------------------- |
-| SIMD implementation terlalu platform-specific | High   | Medium      | Gunakan abstraction dan fallback SWAR             |
-| SIMD menghasilkan bug parsing                 | High   | Medium      | Cross-check dengan SWAR dan comprehensive testing |
-| SWAR lebih lambat dari target                 | Medium | Medium      | Benchmark dan profiling                           |
-| Performance regression                        | High   | Medium      | Regression benchmark                              |
-| Compiler compatibility issue                  | Medium | Low         | Multi-compiler CI                                 |
-| Memory usage terlalu tinggi                   | Medium | Medium      | Profiling dan memory benchmark                    |
+| SIMD implementation terlalu platform-specific | High   | Medium      | Gunakan abstraction dan fallback SWAR             |
+| SIMD menghasilkan bug parsing                 | High   | Medium      | Cross-check dengan SWAR dan comprehensive testing |
+| SWAR lebih lambat dari target                 | Medium | Medium      | Benchmark dan profiling                           |
+| Performance regression                        | High   | Medium      | Regression benchmark                              |
+| Compiler compatibility issue                  | Medium | Low         | Multi-compiler CI                                 |
+| Memory usage terlalu tinggi                   | Medium | Medium      | Profiling dan memory benchmark                    |
 
 ---
 
-## 16. Milestones
+**## 16. Milestones**
 
-| Milestone                        | Target | Status |
-| -------------------------------- | ------ | ------ |
-| Project Foundation               | v0.1.0 | [x]    |
-| Core (Error, Version, Expected)  | v0.2.0 | [-]    |
-| Stage 1: Structural Scan         | v0.3.0 | [ ]    |
-| DOM Representation               | v0.4.0 | [ ]    |
-| Stage 2: Structural Parsing      | v0.5.0 | [ ]    |
-| Testing Suite                    | v0.6.0 | [ ]    |
-| Benchmark Suite                  | v0.7.0 | [ ]    |
-| Documentation                    | v0.10.0| [ ]    |
-| `v1.0.0` Release                 | TBD    | [ ]    |
+| Milestone                           | Target | Status |
+| ------------------------------------|--------|--------|
+| Project Foundation                  | v0.1.0 | [x]    |
+| Core (Error, Version, Expected)     | v0.2.0 | [-]    |
+| Stage 1: Structural Scan            | v0.3.0 | [ ]    |
+| Structural Index & On-Demand Access | v0.4.0 | [ ]    |
+| Stage 2: Structural Parsing         | v0.5.0 | [ ]    |
+| Testing Suite                       | v0.6.0 | [ ]    |
+| Benchmark Suite                     | v0.7.0 | [ ]    |
+| Documentation                       | v0.10.0| [ ]    |
+| `v1.0.0` Release                    | TBD    | [ ]    |
 
 ---
 
-## 17. Acceptance Criteria
+**## 17. Acceptance Criteria**
 
 Produk dinyatakan **ready untuk release** apabila:
 
@@ -628,7 +634,7 @@ Produk dinyatakan **ready untuk release** apabila:
 
 ---
 
-## 18. Out of Scope
+**## 18. Out of Scope**
 
 Fitur berikut tidak termasuk dalam scope `zuu_json`:
 
@@ -646,7 +652,7 @@ Fitur berikut tidak termasuk dalam scope `zuu_json`:
 
 ---
 
-## 19. Open Questions
+**## 19. Open Questions**
 
 * [ ] Apakah `zuu_json` akan mendukung serialization selain parsing?
 * [ ] Architecture SIMD apa saja yang akan menjadi target utama?
@@ -660,8 +666,8 @@ Fitur berikut tidak termasuk dalam scope `zuu_json`:
 
 ---
 
-## 20. Change Log
+**## 20. Change Log**
 
-| Version | Date       | Author  | Changes     |
+| Version | Date       | Author  | Changes     |
 | ------- | ---------- | ------- | ----------- |
-| `1.0.0` | 12-08-2026 | zuudevs | Initial PRD |
+| `1.0.0` | 13-08-2026 | zuudevs | Menghapus DOM dari core parsing pipeline; menggunakan structural index, on-demand parsing, zero-copy string, dan optional mutation storage |
