@@ -35,18 +35,18 @@
 
 ---
 
-## v0.4.0 DOM (Document Object Model)
+## v0.4.0 Structural Index & On-Demand Access
 
-* [ ] Implement `Value`
-* [ ] Implement `Array`
-* [ ] Implement `Object`
-* [ ] Implement `Document`
+* [ ] Implement Structural Index representation
+* [ ] Implement On-Demand JSON value access
+* [ ] Implement zero-copy string access
+* [ ] Implement optional mutation storage (e.g., Arena)
 
 ---
 
 ## v0.5.0 Stage 2: Structural Parsing
 
-* [ ] Build DOM based on structural information
+* [ ] Parse JSON on-demand using structural index
 * [ ] Fast path string parsing (escaping/unescaping)
 * [ ] Fast path number parsing (integers and floats)
 * [ ] Parse literals (`true`, `false`, `null`)
@@ -67,7 +67,7 @@
 * [ ] Integrate Google Benchmark
 * [ ] Add structural scan benchmarks
 * [ ] Add parsing benchmarks
-* [ ] Add DOM benchmarks
+* [ ] Add on-demand access benchmarks
 * [ ] Benchmark against real-world datasets
 
 ---
@@ -115,9 +115,9 @@
 
 * [ ] Serializer
 * [ ] Add SIMD backend (Additional architectures)
-* [ ] On-Demand API
+* [ ] DOM API
 * [ ] SAX parser
 * [ ] JSON Pointer (RFC 6901)
 * [ ] JSON Patch (RFC 6902)
 * [ ] Custom allocator
-* [ ] C++ Modules
+* [ ] C++ Modules
