@@ -37,3 +37,4 @@ endif()
 add_library(zuu_json::zuu_json ALIAS ${ZUU_JSON_LIBRARY_TARGET})
 
 add_test_target(unit error)
+add_test_target(unit ondemand/parser)

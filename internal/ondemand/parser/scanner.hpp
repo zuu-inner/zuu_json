@@ -4,7 +4,7 @@
  * @brief Brief description
  * @version 0.3.0
  * @date 2026-08-13
- * 
+ *
  * @copyright Copyright (c) 2026
  */
 
@@ -23,17 +23,16 @@
 
 namespace zuu::json::ondemand::parser {
 
-inline std::expected<std::vector<uint32_t>, Error> 
-Scanner(std::string_view json) noexcept {
-	if (json.empty()) {
-		return std::unexpected{Error::EmptyValue};
-	}
+std::expected<std::vector<uint32_t>, Error> Scanner(std::string_view json) noexcept {
+    if (json.empty()) {
+        return std::unexpected{Error::EmptyValue};
+    }
 
-	auto ptr = json.data();
-	const auto beg = json.data();
-	const auto end = json.data() + json.size();
+    auto ptr = json.data();
+    const auto beg = json.data();
+    const auto end = json.data() + json.size();
 
-	std::vector<uint32_t> indices;
+    std::vector<uint32_t> indices;
     indices.reserve(json.size() / 3);
 
     bool in_string = false;
@@ -56,14 +55,13 @@ Scanner(std::string_view json) noexcept {
 
         if (quotes == 0 && backslashes == 0) {
             if (!in_string) {
-                uint64_t structs = match('{') | match('}') | 
-                                   match('[') | match(']') | 
-                                   match(':') | match(',');
-                
+                uint64_t structs =
+                    match('{') | match('}') | match('[') | match(']') | match(':') | match(',');
+
                 while (structs) {
                     int tz = std::countr_zero(structs);
                     indices.push_back(static_cast<uint32_t>((ptr - beg) + (tz / 8)));
-                    structs &= structs - 1; 
+                    structs &= structs - 1;
                 }
             }
             ptr += kBlockSize;
@@ -71,21 +69,22 @@ Scanner(std::string_view json) noexcept {
             for (int i = 0; i < kBlockSize; ++i) {
                 const auto ch = ptr[i];
                 if (ch == '\"') {
-                    if ((ptr + i) == beg || *(ptr + i - 1) != '\\') { 
+                    if ((ptr + i) == beg || *(ptr + i - 1) != '\\') {
                         in_string = !in_string;
                         indices.push_back(static_cast<uint32_t>((ptr + i) - beg));
                     }
                 } else if (!in_string) {
-                    switch(ch) {
-                        case '{': 
-						case '}': 
-						case '[': 
-						case ']': 
-						case ':': 
-						case ',': 
-                            indices.push_back(static_cast<uint32_t>((ptr + i) - beg)); 
-                            break;
-						default: break;
+                    switch (ch) {
+                    case '{':
+                    case '}':
+                    case '[':
+                    case ']':
+                    case ':':
+                    case ',':
+                        indices.push_back(static_cast<uint32_t>((ptr + i) - beg));
+                        break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -97,19 +96,22 @@ Scanner(std::string_view json) noexcept {
     while (ptr < end) {
         const auto ch = *ptr;
         if (ch == '\"') {
-            if (ptr == beg || *(ptr - 1) != '\\') { 
+            if (ptr == beg || *(ptr - 1) != '\\') {
                 in_string = !in_string;
                 indices.push_back(static_cast<uint32_t>(ptr - beg));
             }
         } else if (!in_string) {
-            switch(ch) {
-                case '{': 
-                case '}': 
-                case '[': 
-                case ']': 
-                case ':': 
-                case ',': indices.push_back(static_cast<uint32_t>(ptr - beg)); break;
-                default: break;
+            switch (ch) {
+            case '{':
+            case '}':
+            case '[':
+            case ']':
+            case ':':
+            case ',':
+                indices.push_back(static_cast<uint32_t>(ptr - beg));
+                break;
+            default:
+                break;
             }
         }
         ptr++;

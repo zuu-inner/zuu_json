@@ -38,6 +38,7 @@ enum class Error : uint8_t {
     TrailingComma,
     UnescapedCharacter,
     UnquotedKey,
+	EndOfFile,
 
     Unknown
 };
