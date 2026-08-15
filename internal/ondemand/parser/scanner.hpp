@@ -45,7 +45,7 @@ std::expected<std::vector<uint32_t>, Error> Scanner(std::string_view json) noexc
         constexpr uint64_t L0 = 0x0101010101010101ULL;
         constexpr uint64_t L8 = 0x8080808080808080ULL;
 
-        auto match = [&](char c) {
+        auto match = [&](char c) noexcept {
             uint64_t diff = block ^ (static_cast<uint8_t>(c) * L0);
             return (diff - L0) & ~diff & L8;
         };

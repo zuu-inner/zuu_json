@@ -20,6 +20,7 @@ enum class Error : uint8_t {
     CommentNotAllowed,
     DepthLimitExceeded,
     EmptyValue,
+	EndOfFile,
     InvalidBooleanLiteral,
     InvalidFormat,
     InvalidNullLiteral,
@@ -29,6 +30,7 @@ enum class Error : uint8_t {
     InvalidValue,
     IsNotArray,
     IsNotObject,
+	KeyNotFound,
     LeadingZero,
     MissingComma,
     OutOfBound,
@@ -38,7 +40,6 @@ enum class Error : uint8_t {
     TrailingComma,
     UnescapedCharacter,
     UnquotedKey,
-	EndOfFile,
 
     Unknown
 };
@@ -54,6 +55,8 @@ enum class Error : uint8_t {
             return "Maximum nesting depth limit exceeded";
         case Error::EmptyValue:
             return "Empty JSON input or value";
+        case Error::EndOfFile:
+            return "JSON index is at the end";
         case Error::InvalidBooleanLiteral:
             return "Invalid boolean literal";
         case Error::InvalidFormat:
@@ -74,6 +77,8 @@ enum class Error : uint8_t {
             return "JSON element is not an object";
         case Error::LeadingZero:
             return "Numbers cannot have leading zeros";
+        case Error::KeyNotFound:
+            return "Key is not found at JSON";
         case Error::MissingComma:
             return "Missing expected comma separator";
         case Error::OutOfBound:
