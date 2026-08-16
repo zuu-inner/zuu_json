@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "parse_literal.hpp"
+#include "parse_string.hpp"
 #include "zuu_json/error.hpp"
 #include "constants/json_type.hpp"
 
@@ -88,7 +89,23 @@ class Iterator {
         uint32_t end_pos = indices[idx];
         idx++;
 
-        return std::string_view(json.data() + start_pos, end_pos - start_pos);
+        std::string_view result_str(json.data() + start_pos, end_pos - start_pos);
+        if (auto valid = ValidateUtf8(result_str); !valid.has_value()) {
+            return std::unexpected{valid.error()};
+        }
+        
+        return result_str;
+    }
+
+    std::expected<std::string, Error> getUnescapedString() noexcept {
+        auto str_res = getString();
+        if (!str_res.has_value()) return std::unexpected{str_res.error()};
+
+        if (!HasEscape(str_res.value())) {
+            return std::string(str_res.value());
+        }
+
+        return UnescapeString(str_res.value());
     }
 
     std::expected<double, Error> getNumber() noexcept {

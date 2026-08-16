@@ -30,7 +30,7 @@
 * [ ] Implement SIMD Backend (e.g., AVX2/NEON) for structural scanning
 * [x] Identify structural characters
 * [x] Identify string boundaries
-* [ ] UTF-8 validation
+* [x] UTF-8 validation
 * [x] Produce structural information (Tape)
 
 ---
@@ -47,9 +47,9 @@
 ## v0.5.0 Stage 2: Structural Parsing
 
 * [x] Parse JSON on-demand using structural index
-* [ ] Fast path string parsing (escaping/unescaping)
-* [x] Fast path number parsing (integers and floats)
-* [ ] Parse literals (`true`, `false`, `null`)
+* [x] Fast path string parsing (escaping/unescaping)
+* [ ] Fast path number parsing (integers and floats)
+* [x] Parse literals (`true`, `false`, `null`)
 * [ ] Improve parser diagnostics
 
 ---

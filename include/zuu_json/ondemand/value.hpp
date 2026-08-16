@@ -27,6 +27,10 @@ public:
         return iter.getString();
     }
 
+    std::expected<std::string, Error> getUnescapedString() noexcept {
+        return iter.getUnescapedString();
+    }
+
     std::expected<double, Error> getNumber() noexcept {
         return iter.getNumber();
     }
