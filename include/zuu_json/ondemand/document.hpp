@@ -25,12 +25,18 @@ namespace zuu::json::ondemand {
 
 class Document {
 public:
+    struct Location {
+        size_t line{1};
+        size_t column{1};
+    };
+
     Document(std::string_view json) noexcept : json(json) {
         if (auto res = parser::Scanner(json); res.has_value()) {
             indices = std::move(res.value());
             err = Error::None;
         } else {
             err = res.error();
+            err_offset = 0; // If scanner failed at start
         }
     }
 
@@ -41,7 +47,7 @@ public:
         if (indices.empty()) {
             return std::unexpected{Error::EmptyValue};
         }
-        return Value(parser::Iterator(indices, json));
+        return Value(parser::Iterator(indices, json, 0, &err_offset));
     }
 
     std::expected<Value, Error> operator[](std::string_view key) const noexcept {
@@ -56,10 +62,30 @@ public:
         return err;
     }
 
+    [[nodiscard]] size_t getErrorOffset() const noexcept {
+        return err_offset;
+    }
+
+    [[nodiscard]] Location getErrorLocation() const noexcept {
+        Location loc;
+        if (err_offset == std::string::npos) return loc;
+        
+        for (size_t i = 0; i < err_offset && i < json.size(); ++i) {
+            if (json[i] == '\n') {
+                loc.line++;
+                loc.column = 1;
+            } else {
+                loc.column++;
+            }
+        }
+        return loc;
+    }
+
 private:
     std::vector<uint32_t> indices;
     std::string_view json;
     Error err{Error::None};
+    mutable size_t err_offset{std::string::npos};
 };
 
 } // namespace zuu::json::ondemand

@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "parse_literal.hpp"
+#include "parse_number.hpp"
 #include "parse_string.hpp"
 #include "zuu_json/error.hpp"
 #include "constants/json_type.hpp"
@@ -26,13 +27,21 @@ namespace zuu::json::ondemand::parser {
 
 class Iterator {
   public:
-    Iterator(const std::vector<uint32_t>& indices, std::string_view json, size_t idx = 0) noexcept
-        : indices(indices), json(json), idx(idx) {}
+    Iterator(const std::vector<uint32_t>& indices, std::string_view json, size_t idx = 0, size_t* err_offset = nullptr) noexcept
+        : indices(indices), json(json), idx(idx), err_offset(err_offset) {}
 
   private:
     const std::vector<uint32_t>& indices;
     std::string_view json;
     size_t idx{};
+    size_t* err_offset{};
+
+    std::unexpected<Error> fail(Error e) const noexcept {
+        if (err_offset && *err_offset == std::string::npos && e != Error::None) {
+            *err_offset = (idx < indices.size()) ? indices[idx] : json.size();
+        }
+        return std::unexpected{e};
+    }
 
     size_t skipWhitespace(size_t pos) const noexcept {
         while (pos < json.size() && json[pos] <= ' ') {
@@ -44,7 +53,7 @@ class Iterator {
   public:
     std::expected<constants::JsonType, Error> type() const noexcept {
         if (idx >= indices.size()) {
-            return std::unexpected{Error::EndOfFile};
+            return fail(Error::EndOfFile);
         }
 
         const auto ch = json[indices[idx]];
@@ -66,13 +75,13 @@ class Iterator {
             }
         }
 
-        return std::unexpected{Error::InvalidType};
+        return fail(Error::InvalidType);
     }
 
     std::expected<std::string_view, Error> getString() noexcept {
         auto current_type = type();
         if (!current_type.has_value() || current_type.value() != constants::JsonType::String) {
-            return std::unexpected{Error::InvalidType};
+            return fail(Error::InvalidType);
         }
 
         if (json[indices[idx]] == ':' || json[indices[idx]] == ',') {
@@ -83,7 +92,7 @@ class Iterator {
 
         idx++;
         if (idx >= indices.size() || json[indices[idx]] != '"') {
-            return std::unexpected{Error::InvalidFormat};
+            return fail(Error::InvalidFormat);
         }
 
         uint32_t end_pos = indices[idx];
@@ -91,7 +100,7 @@ class Iterator {
 
         std::string_view result_str(json.data() + start_pos, end_pos - start_pos);
         if (auto valid = ValidateUtf8(result_str); !valid.has_value()) {
-            return std::unexpected{valid.error()};
+            return fail(valid.error());
         }
         
         return result_str;
@@ -99,7 +108,7 @@ class Iterator {
 
     std::expected<std::string, Error> getUnescapedString() noexcept {
         auto str_res = getString();
-        if (!str_res.has_value()) return std::unexpected{str_res.error()};
+        if (!str_res.has_value()) return fail(str_res.error());
 
         if (!HasEscape(str_res.value())) {
             return std::string(str_res.value());
@@ -111,27 +120,26 @@ class Iterator {
     std::expected<double, Error> getNumber() noexcept {
         auto current_type = type();
         if (!current_type.has_value() || current_type.value() != constants::JsonType::Float) {
-            return std::unexpected{Error::InvalidType};
+            return fail(Error::InvalidType);
         }
 
         size_t start_pos = skipWhitespace(indices[idx] + 1);
         size_t end_pos = (idx + 1 < indices.size()) ? indices[idx + 1] : json.size();
 
-        double value = 0.0;
-        auto [ptr, ec] = std::from_chars(json.data() + start_pos, json.data() + end_pos, value);
-
-        if (ec != std::errc()) {
-            return std::unexpected{Error::InvalidFormat};
+        std::string_view num_str(json.data() + start_pos, end_pos - start_pos);
+        auto res = ParseDoubleFast(num_str);
+        if (!res.has_value()) {
+            return fail(res.error());
         }
 
         idx++;
-        return value;
+        return res.value();
     }
 
 	std::expected<std::nullptr_t, Error> getNull() noexcept {
 		auto current_type = type();
 		if (!current_type.has_value() || current_type.value() != constants::JsonType::Null) {
-			return std::unexpected{Error::InvalidType};
+			return fail(Error::InvalidType);
 		}
 
 		size_t start_pos = skipWhitespace(indices[idx] + 1);
@@ -147,7 +155,7 @@ class Iterator {
 	std::expected<bool, Error> getBool() noexcept {
 		auto current_type = type();
 		if (!current_type.has_value() || current_type.value() != constants::JsonType::Bool) {
-			return std::unexpected{Error::InvalidType};
+			return fail(Error::InvalidType);
 		}
 
 		size_t start_pos = skipWhitespace(indices[idx] + 1);
@@ -163,7 +171,7 @@ class Iterator {
     std::expected<Iterator, Error> findKey(std::string_view target_key) noexcept {
         auto current_type = type();
         if (!current_type.has_value() || current_type.value() != constants::JsonType::Object) {
-            return std::unexpected{Error::InvalidType};
+            return fail(Error::InvalidType);
         }
 
         if (idx < indices.size() && (json[indices[idx]] == ':' || json[indices[idx]] == ',')) {
@@ -185,22 +193,22 @@ class Iterator {
                 uint32_t start = indices[idx] + 1;
                 idx++;
                 
-                if (idx >= indices.size()) return std::unexpected{Error::InvalidFormat};
+                if (idx >= indices.size()) return fail(Error::InvalidFormat);
                 
                 uint32_t end = indices[idx];
                 std::string_view current_key(json.data() + start, end - start);
                 idx++;
                 
                 if (current_key == target_key) {
-                    return Iterator(indices, json, idx);
+                    return Iterator(indices, json, idx, err_offset);
                 } else {
                     skipCurrent(); 
                 }
             } else {
-                return std::unexpected{Error::InvalidFormat};
+                return fail(Error::InvalidFormat);
             }
         }
-        return std::unexpected{Error::KeyNotFound};
+        return fail(Error::KeyNotFound);
     }
 
     void skipCurrent() noexcept {

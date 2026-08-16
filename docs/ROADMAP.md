@@ -48,9 +48,9 @@
 
 * [x] Parse JSON on-demand using structural index
 * [x] Fast path string parsing (escaping/unescaping)
-* [ ] Fast path number parsing (integers and floats)
+* [x] Fast path number parsing (integers and floats)
 * [x] Parse literals (`true`, `false`, `null`)
-* [ ] Improve parser diagnostics
+* [x] Improve parser diagnostics
 
 ---
 
