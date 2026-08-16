@@ -23,7 +23,7 @@
 
 namespace zuu::json::ondemand::parser {
 
-std::expected<std::vector<uint32_t>, Error> Scanner(std::string_view json) noexcept {
+inline std::expected<std::vector<uint32_t>, Error> Scanner(std::string_view json) noexcept {
     if (json.empty()) {
         return std::unexpected{Error::EmptyValue};
     }

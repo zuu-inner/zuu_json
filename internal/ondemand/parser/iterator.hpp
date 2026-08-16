@@ -2,7 +2,7 @@
  * @file iterator.hpp
  * @author zuudevs (zuudevs@gmail.com)
  * @brief Brief description
- * @version 0.1.0
+ * @version 0.3.0
  * @date 2026-08-15
  *
  * @copyright Copyright (c) 2026
@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "zuu_json/error.hpp"
+#include "constants/json_type.hpp"
 
 namespace zuu::json::ondemand::parser {
 
@@ -38,6 +39,7 @@ class Iterator {
         return pos;
     }
 
+  public:
     std::expected<constants::JsonType, Error> type() const noexcept {
         if (idx >= indices.size()) {
             return std::unexpected{Error::EndOfFile};
@@ -56,9 +58,9 @@ class Iterator {
                 if (next_c == '"') return constants::JsonType::String;
                 if (next_c == '{') return constants::JsonType::Object;
                 if (next_c == '[') return constants::JsonType::Array;
-                if (next_c == 't' || next_c == 'f') return constants::JsonType::Boolean;
+                if (next_c == 't' || next_c == 'f') return constants::JsonType::Bool;
                 if (next_c == 'n') return constants::JsonType::Null;
-                if (next_c == '-' || (static_cast<uint32_t>(next_c - '0') < 10)) return constants::JsonType::Number;
+                if (next_c == '-' || (static_cast<uint32_t>(next_c - '0') < 10)) return constants::JsonType::Float;
             }
         }
 
@@ -90,7 +92,7 @@ class Iterator {
 
     std::expected<double, Error> getNumber() noexcept {
         auto current_type = type();
-        if (!current_type.has_value() || current_type.value() != constants::JsonType::Number) {
+        if (!current_type.has_value() || current_type.value() != constants::JsonType::Float) {
             return std::unexpected{Error::InvalidType};
         }
 
@@ -114,7 +116,11 @@ class Iterator {
             return std::unexpected{Error::InvalidType};
         }
 
-        idx++;
+        if (idx < indices.size() && (json[indices[idx]] == ':' || json[indices[idx]] == ',')) {
+            idx++;
+        }
+
+        idx++; // Advance past '{'
 
         while (idx < indices.size()) {
             char c = json[indices[idx]];
