@@ -17,6 +17,7 @@
 #include <string_view>
 #include <vector>
 
+#include "parse_literal.hpp"
 #include "zuu_json/error.hpp"
 #include "constants/json_type.hpp"
 
@@ -109,6 +110,38 @@ class Iterator {
         idx++;
         return value;
     }
+
+	std::expected<std::nullptr_t, Error> getNull() noexcept {
+		auto current_type = type();
+		if (!current_type.has_value() || current_type.value() != constants::JsonType::Null) {
+			return std::unexpected{Error::InvalidType};
+		}
+
+		size_t start_pos = skipWhitespace(indices[idx] + 1);
+		size_t end_pos = (idx + 1 < indices.size()) ? indices[idx + 1] : json.size();
+
+		auto res = ParseNull(std::string_view(json.data() + start_pos, end_pos - start_pos));
+		if (res.has_value()) {
+			idx++;
+		}
+		return res;
+	}
+
+	std::expected<bool, Error> getBool() noexcept {
+		auto current_type = type();
+		if (!current_type.has_value() || current_type.value() != constants::JsonType::Bool) {
+			return std::unexpected{Error::InvalidType};
+		}
+
+		size_t start_pos = skipWhitespace(indices[idx] + 1);
+		size_t end_pos = (idx + 1 < indices.size()) ? indices[idx + 1] : json.size();
+
+		auto res = ParseBool(std::string_view(json.data() + start_pos, end_pos - start_pos));
+		if (res.has_value()) {
+			idx++;
+		}
+		return res;
+	}
 
     std::expected<Iterator, Error> findKey(std::string_view target_key) noexcept {
         auto current_type = type();

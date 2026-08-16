@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include <cstddef>
 #include <expected>
 #include <string_view>
 
@@ -29,6 +30,14 @@ public:
     std::expected<double, Error> getNumber() noexcept {
         return iter.getNumber();
     }
+
+	std::expected<std::nullptr_t, Error> getNull() noexcept {
+		return iter.getNull();
+	}
+
+	std::expected<bool, Error> getBool() noexcept {
+		return iter.getBool();
+	}
 
     std::expected<Value, Error> operator[](std::string_view key) noexcept {
         auto child_iter = iter.findKey(key);

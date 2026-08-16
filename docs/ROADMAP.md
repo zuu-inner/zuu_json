@@ -17,38 +17,38 @@
 ## v0.2.0 Core
 
 * [x] Implement `Error`
-* [ ] Implement `Result<T>` using `std::expected`
+* [x] Implement `Result<T>` using `std::expected`
 * [x] Implement version information
-* [ ] Design public API
+* [x] Design public API
 * [ ] Design memory allocator strategy (e.g., Arena/Tape)
 
 ---
 
 ## v0.3.0 Stage 1: Structural Scan
 
-* [ ] Implement SWAR Backend for structural scanning
+* [x] Implement SWAR Backend for structural scanning
 * [ ] Implement SIMD Backend (e.g., AVX2/NEON) for structural scanning
-* [ ] Identify structural characters
-* [ ] Identify string boundaries
+* [x] Identify structural characters
+* [x] Identify string boundaries
 * [ ] UTF-8 validation
-* [ ] Produce structural information (Tape)
+* [x] Produce structural information (Tape)
 
 ---
 
 ## v0.4.0 Structural Index & On-Demand Access
 
-* [ ] Implement Structural Index representation
-* [ ] Implement On-Demand JSON value access
-* [ ] Implement zero-copy string access
+* [x] Implement Structural Index representation
+* [x] Implement On-Demand JSON value access
+* [x] Implement zero-copy string access
 * [ ] Implement optional mutation storage (e.g., Arena)
 
 ---
 
 ## v0.5.0 Stage 2: Structural Parsing
 
-* [ ] Parse JSON on-demand using structural index
+* [x] Parse JSON on-demand using structural index
 * [ ] Fast path string parsing (escaping/unescaping)
-* [ ] Fast path number parsing (integers and floats)
+* [x] Fast path number parsing (integers and floats)
 * [ ] Parse literals (`true`, `false`, `null`)
 * [ ] Improve parser diagnostics
 
@@ -56,7 +56,7 @@
 
 ## v0.6.0 Testing
 
-* [ ] Unit tests
+* [x] Unit tests
 * [ ] Integration tests
 * [ ] Fuzz testing
 
